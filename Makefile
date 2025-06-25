@@ -31,6 +31,7 @@ help:
 	@echo "Available commands:"
 	@echo "  make compile - Compiles the source code"
 	@echo "  make run     - Runs the application"
+	@echo "  make run-jar - Runs the application from .jar file"
 	@echo "  make clean   - Cleans the project"
 	@echo "  make all     - Compiles and runs the application"
 
