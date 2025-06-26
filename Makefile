@@ -1,4 +1,4 @@
-.PHONY: compile package run run-jar clean all help git-init
+.PHONY: compile package run run-jar clean all help git-init test
 
 ifneq (,$(wildcard ./.env))
 include .env
@@ -24,6 +24,9 @@ run:
 run-jar:
 	java -jar target/HelloWorld-1.0.0.jar
 
+test:
+	mvn test
+
 clean:
 	mvn clean
 
@@ -32,8 +35,10 @@ help:
 	@echo "  make compile - Compiles the source code"
 	@echo "  make run     - Runs the application"
 	@echo "  make run-jar - Runs the application from .jar file"
+	@echo "  make test    - Runs all tests"
 	@echo "  make clean   - Cleans the project"
 	@echo "  make all     - Compiles and runs the application"
+
 
 # Git
 git-init:
