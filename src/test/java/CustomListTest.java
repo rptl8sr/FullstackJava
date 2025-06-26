@@ -1,0 +1,150 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
+
+import java.util.ArrayList;
+
+public class CustomListTest {
+    private CustomList customList;
+    private ArrayList<Object> arrayList;
+
+    @BeforeEach
+    void init() {
+        customList = new CustomList();
+        arrayList = new ArrayList<>();
+    }
+
+    @Test
+    void testAdd() {
+        customList.add("First");
+        customList.add("Second");
+        arrayList.add("First");
+        arrayList.add("Second");
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+    }
+
+    @Test
+    void testGet() {
+        customList.add("First");
+        customList.add("Second");
+        arrayList.add("First");
+        arrayList.add("Second");
+
+        Assertions.assertEquals(customList.get(0), arrayList.get(0));
+        Assertions.assertEquals(customList.get(1), arrayList.get(1));
+    }
+
+    @Test
+    void testGetOutOfIndex() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> customList.get(-1));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(-1));
+    }
+
+    @Test
+    void testSet() {
+        customList.add("First");
+        customList.add("Second");
+        arrayList.add("First");
+        arrayList.add("Second");
+
+        Assertions.assertEquals(customList.set(0, "New First"), arrayList.set(0, "New First"));
+        Assertions.assertEquals(customList.set(1, "New Second"), arrayList.set(1, "New Second"));
+    }
+
+    @Test
+    void testSetOutOfIndex() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> customList.set(1, "New First"));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> arrayList.set(1, "New First"));
+    }
+
+    @Test
+    void testRemove() {
+        customList.add("First");
+        customList.add("Second");
+        arrayList.add("First");
+        arrayList.add("Second");
+
+        Assertions.assertEquals(customList.remove(1), arrayList.remove(1));
+        Assertions.assertEquals(customList.remove(0), arrayList.remove(0));
+    }
+
+    @Test
+    void testRemoveOutOfIndex() {
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> customList.remove(0));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> arrayList.remove(0));
+    }
+
+    @Test
+    void testSizeDefaultCapacity() {
+        for (int i = 0; i < 100; i++) {
+            customList.add(i);
+            arrayList.add(i);
+        }
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+    }
+
+    @Test
+    void testSizeCustomCapacity() {
+        customList = new CustomList(1);
+        for (int i = 0; i < 100; i++) {
+            customList.add(i);
+            arrayList.add(i);
+        }
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+        Assertions.assertEquals(customList.get(99), arrayList.get(99));
+    }
+
+    @Test
+    void testClear() {
+        customList.add("First");
+        customList.add("Second");
+        arrayList.add("First");
+        arrayList.add("Second");
+
+        customList.clear();
+        arrayList.clear();
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+        Assertions.assertTrue(customList.isEmpty());
+        Assertions.assertTrue(arrayList.isEmpty());
+    }
+
+    @Test
+    void testAddAndRemove() {
+        int size = 100;
+
+        for (int i = 0; i < size; i++) {
+            customList.add(i);
+            arrayList.add(i);
+        }
+
+        for (int i = size - 1; i >= 0; i--) {
+            customList.remove(i);
+            arrayList.remove(i);
+        }
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+    }
+
+    @Test
+    void testAddAndRandomRemove() {
+        int size = 100;
+
+        for (int i = 0; i < size; i++) {
+            customList.add(i);
+            arrayList.add(i);
+        }
+
+        for (int i = size - 1; i >= 0; i--) {
+            int randomNumber = (int) (Math.random() * (i + 1));
+
+            customList.remove(randomNumber);
+            arrayList.remove(randomNumber);
+        }
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+    }
+}
