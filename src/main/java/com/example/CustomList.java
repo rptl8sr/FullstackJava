@@ -1,3 +1,5 @@
+package com.example;
+
 import java.util.*;
 
 public class CustomList<T> implements List<T> {
