@@ -39,6 +39,8 @@ public class CustomListTest {
     void testGetOutOfIndex() {
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> customList.get(-1));
         Assertions.assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(-1));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> customList.get(0));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(0));
     }
 
     @Test
@@ -80,9 +82,10 @@ public class CustomListTest {
         for (int i = 0; i < 100; i++) {
             customList.add(i);
             arrayList.add(i);
+            Assertions.assertEquals(customList.size(), arrayList.size());
         }
 
-        Assertions.assertEquals(customList.size(), arrayList.size());
+        Assertions.assertEquals(customList.get(99), arrayList.get(99));
     }
 
     @Test
@@ -91,9 +94,9 @@ public class CustomListTest {
         for (int i = 0; i < 100; i++) {
             customList.add(i);
             arrayList.add(i);
+            Assertions.assertEquals(customList.size(), arrayList.size());
         }
 
-        Assertions.assertEquals(customList.size(), arrayList.size());
         Assertions.assertEquals(customList.get(99), arrayList.get(99));
     }
 
@@ -124,9 +127,8 @@ public class CustomListTest {
         for (int i = size - 1; i >= 0; i--) {
             customList.remove(i);
             arrayList.remove(i);
+            Assertions.assertEquals(customList.size(), arrayList.size());
         }
-
-        Assertions.assertEquals(customList.size(), arrayList.size());
     }
 
     @Test
@@ -146,5 +148,32 @@ public class CustomListTest {
         }
 
         Assertions.assertEquals(customList.size(), arrayList.size());
+    }
+
+    @Test
+    void testNullValues() {
+        customList.add(null);
+        customList.add("NotNull");
+        customList.add(null);
+
+        arrayList.add(null);
+        arrayList.add("NotNull");
+        arrayList.add(null);
+
+        Assertions.assertEquals(customList.size(), arrayList.size());
+        Assertions.assertEquals(customList.get(0), arrayList.get(0));
+        Assertions.assertEquals(customList.get(2), arrayList.get(2));
+        Assertions.assertNull(customList.get(0));
+        Assertions.assertNull(arrayList.get(0));
+    }
+
+    @Test
+    void testEmptyListIndex() {
+        Assertions.assertTrue(customList.isEmpty());
+        Assertions.assertTrue(arrayList.isEmpty());
+        Assertions.assertEquals(customList.size(), arrayList.size());
+
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> customList.get(0));
+        Assertions.assertThrows(IndexOutOfBoundsException.class, () -> arrayList.get(0));
     }
 }
