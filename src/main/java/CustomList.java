@@ -56,6 +56,13 @@ public class CustomList implements List {
     @Override
     public void add(int index, Object element) {
         checkIndex(index);
+        checkCapacity(size + 1);
+
+        for (int i = size; i > index; i--) {
+            elements[i] = elements[i - 1];
+        }
+        elements[index] = element;
+        size++;
     }
 
     @Override
