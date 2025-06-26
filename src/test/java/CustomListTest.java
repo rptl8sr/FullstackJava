@@ -25,6 +25,25 @@ public class CustomListTest {
     }
 
     @Test
+    void testAddRandomIndex() {
+        int size = 100;
+
+        for (int i = 0; i < size; i++) {
+            customList.add(i);
+            arrayList.add(i);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            int randomNumber = (int) (Math.random() * (size + 1));
+
+            customList.add(randomNumber, "New Element");
+            arrayList.add(randomNumber, "New Element");
+            Assertions.assertEquals(customList.size(), arrayList.size());
+            Assertions.assertEquals(customList.get(size-1), arrayList.get(size-1));
+        }
+    }
+
+    @Test
     void testGet() {
         customList.add("First");
         customList.add("Second");
