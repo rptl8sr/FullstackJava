@@ -10,6 +10,7 @@ public class Main {
         list.add("Hello");
         list.add("World");
         list.add("!");
-        System.out.println(list);
+
+        System.out.printf("%s %s%s%n", list.get(0), list.get(1), list.get(2));
     }
 }

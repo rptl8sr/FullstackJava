@@ -10,7 +10,7 @@ PROJECT := $(CURDIR)
 LOCAL_BIN := $(CURDIR)/bin
 
 # Maven
-all: compile run
+all: test compile run
 
 compile:
 	mvn compile
@@ -19,7 +19,7 @@ package:
 	mvn package
 
 run:
-	java -cp target/classes Main
+	java -cp target/classes com.example.Main
 
 run-jar:
 	java -jar target/HelloWorld-1.0.0.jar
@@ -32,13 +32,13 @@ clean:
 
 help:
 	@echo "Available commands:"
+	@echo "  make all     - Compiles and runs the application"
 	@echo "  make compile - Compiles the source code"
+	@echo "  make package - Compiles the source code to .jar file"
 	@echo "  make run     - Runs the application"
 	@echo "  make run-jar - Runs the application from .jar file"
 	@echo "  make test    - Runs all tests"
 	@echo "  make clean   - Cleans the project"
-	@echo "  make all     - Compiles and runs the application"
-
 
 # Git
 git-init:
