@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 
 public class CustomListTest {
-    private CustomList customList;
+    private CustomList<Object> customList;
     private ArrayList<Object> arrayList;
 
     @BeforeEach
     void init() {
-        customList = new CustomList();
+        customList = new CustomList<>();
         arrayList = new ArrayList<>();
     }
 

@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class CustomList implements List {
+public class CustomList<T> implements List<T> {
     private static final int DEFAULT_CAPACITY = 10;
-    private Object[] elements;
+    private T[] elements;
     private int size;
     private int capacity;
 
@@ -14,13 +14,14 @@ public class CustomList implements List {
         defaultConstructor(initCapacity);
     }
 
+
     private void defaultConstructor(int initCapacity) {
         if (initCapacity <= 0) {
             throw new IllegalArgumentException("Capacity must be greater than 0");
         }
         size = 0;
         capacity = initCapacity;
-        elements = new Object[initCapacity];
+        elements = (T[]) new Object[initCapacity];
     }
 
     private void checkCapacity(int targetCapacity) {
@@ -46,7 +47,7 @@ public class CustomList implements List {
     }
 
     @Override
-    public boolean add(Object obj) {
+    public boolean add(T obj) {
         checkCapacity(size + 1);
         elements[size] = obj;
         size++;
@@ -54,8 +55,10 @@ public class CustomList implements List {
     }
 
     @Override
-    public void add(int index, Object element) {
-        checkIndex(index);
+    public void add(int index, T element) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException(String.format("Invalid index: %d. List size: %d", index, size));
+        }
         checkCapacity(size + 1);
 
         for (int i = size; i > index; i--) {
@@ -66,23 +69,23 @@ public class CustomList implements List {
     }
 
     @Override
-    public Object get(int index) {
+    public T get(int index) {
         checkIndex(index);
         return elements[index];
     }
 
     @Override
-    public Object set(int index, Object element) {
+    public T set(int index, T element) {
         checkIndex(index);
-        Object prevElement = elements[index];
+        T prevElement = elements[index];
         elements[index] = element;
         return prevElement;
     }
 
     @Override
-    public Object remove(int index) {
+    public T remove(int index) {
         checkIndex(index);
-        Object removed = elements[index];
+        T removed = elements[index];
 
         for (int i = index; i < size - 1; i++) {
             elements[i] = elements[i + 1];
