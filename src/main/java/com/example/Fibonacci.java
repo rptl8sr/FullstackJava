@@ -2,8 +2,16 @@ package com.example;
 
 import lombok.extern.java.Log;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Log
 public class Fibonacci {
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s: %5$s%6$s%n");
+        Logger.getLogger("Fibonacci").setLevel(Level.INFO);
+    }
+
     public static void main(String... args) {
         System.out.println("FibonacciRecursive " + fibonacciRecursive(10));
     }
