@@ -2,6 +2,8 @@ package com.example;
 
 import lombok.extern.java.Log;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,11 +14,19 @@ public class Fibonacci {
         Logger.getLogger("Fibonacci").setLevel(Level.INFO);
     }
 
-    public static void main(String... args) {
-        System.out.println("FibonacciRecursive " + fibonacciRecursive(10));
+    private final Map<Integer, Long> cache;
+
+    public Fibonacci() {
+        this.cache = new HashMap<>();
     }
 
-    public static long fibonacciRecursive(int n) {
+    public static void main(String... args) {
+        Fibonacci fibonacci = new Fibonacci();
+        System.out.println("Fibonacci Recursive " + fibonacci.Recursive(10));
+        System.out.println("Fibonacci Memoized " + fibonacci.Memoized(10));
+    }
+
+    public long Recursive(int n) {
         if (n < 0) {
             log.severe("n must be greater than or equal to 0");
             throw new IllegalArgumentException("n must be greater than or equal to 0");
@@ -26,8 +36,28 @@ public class Fibonacci {
             return n;
         }
 
-        long res = fibonacciRecursive(n-1) + fibonacciRecursive(n-2);
+        long res = Recursive(n-1) + Recursive(n-2);
         log.fine("res = " + res + ", n = " + n);
+        return res;
+    }
+
+    public long Memoized(int n) {
+        if (n < 0) {
+            log.severe("n must be greater than or equal to 0");
+            throw new IllegalArgumentException("n must be greater than or equal to 0");
+        }
+
+        if (n <= 1) {
+            return n;
+        }
+
+        if (cache.containsKey(n)) {
+            return cache.get(n);
+        }
+
+        long res = Recursive(n-1) + Recursive(n-2);
+        log.fine("res = " + res + ", n = " + n);
+        cache.put(n, res);
         return res;
     }
 }
