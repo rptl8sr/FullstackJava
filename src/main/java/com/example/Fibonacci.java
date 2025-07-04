@@ -1,30 +1,24 @@
 package com.example;
 
-import lombok.extern.java.Log;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-@Log
 public class Fibonacci {
-    static {
-        System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s: %5$s%6$s%n");
-        Logger.getLogger("Fibonacci").setLevel(Level.INFO);
-    }
-
     private final Map<Integer, Long> cache;
 
     public Fibonacci() {
         this.cache = new HashMap<>();
     }
 
+    public void clearCache() {
+        cache.clear();
+    }
+
     public static void main(String... args) {
         Fibonacci fibonacci = new Fibonacci();
-        System.out.println("Fibonacci Recursive " + fibonacci.Recursive(10));
-        System.out.println("Fibonacci Memoized " + fibonacci.Memoized(10));
-        System.out.println("Fibonacci Iterative " + fibonacci.Iterative(10));
+        System.out.println("Fibonacci Recursive " + fibonacci.Recursive(35));
+        System.out.println("Fibonacci Memoized " + fibonacci.Memoized(35));
+        System.out.println("Fibonacci Iterative " + fibonacci.Iterative(35));
     }
 
     public long Recursive(int n) {
@@ -32,9 +26,7 @@ public class Fibonacci {
             return validateNumberCondition(n);
         }
 
-        long res = Recursive(n-1) + Recursive(n-2);
-        log.fine("res = " + res + ", n = " + n);
-        return res;
+        return Recursive(n-1) + Recursive(n-2);
     }
 
     public long Memoized(int n) {
@@ -46,10 +38,7 @@ public class Fibonacci {
             return cache.get(n);
         }
 
-        long res = Recursive(n-1) + Recursive(n-2);
-        log.fine("res = " + res + ", n = " + n);
-        cache.put(n, res);
-        return res;
+        return Memoized(n-1) + Memoized(n-2);
     }
 
     public long Iterative(int n) {
@@ -65,7 +54,6 @@ public class Fibonacci {
             current = prevNumber + prevPrevNumber;
             prevPrevNumber = prevNumber;
             prevNumber = current;
-            log.fine("current = " + current + ", prevNumber = " + prevNumber + ", prevPrevNumber = " + prevPrevNumber);
         }
 
         return current;
@@ -73,7 +61,6 @@ public class Fibonacci {
 
     private long validateNumberCondition(int n) {
         if (n < 0) {
-            log.severe("n must be greater than or equal to 0");
             throw new IllegalArgumentException("n must be greater than or equal to 0");
         }
         if (n <= 1) {
