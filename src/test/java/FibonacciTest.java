@@ -1,10 +1,9 @@
 import com.example.Fibonacci;
-import lombok.extern.java.Log;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
-@Log
 public class FibonacciTest {
     private Fibonacci fibonacci;
     private final long[] first35fibNumbers = {
@@ -25,9 +24,6 @@ public class FibonacciTest {
     @Test
     void testRecursiveCorrectness() {
         for (int i = 0; i < first35fibNumbers.length; i++) {
-            long res = fibonacci.Recursive(i);
-            long check = first35fibNumbers[i];
-            log.info("Testing recursive correctness [" + i + "]: res = " + res + ", check = " + check);
             Assertions.assertEquals(fibonacci.Recursive(i), first35fibNumbers[i]);
         }
     }
@@ -35,9 +31,6 @@ public class FibonacciTest {
     @Test
     void testMemoizedCorrectness() {
         for (int i = 0; i < first35fibNumbers.length; i++) {
-            long res = fibonacci.Memoized(i);
-            long check = first35fibNumbers[i];
-            log.info("Testing memoized correctness [" + i + "]: res = " + res + ", check = " + check);
             Assertions.assertEquals(fibonacci.Memoized(i), first35fibNumbers[i]);
         }
     }
@@ -45,9 +38,6 @@ public class FibonacciTest {
     @Test
     void testIterativeCorrectness() {
         for (int i = 0; i < first35fibNumbers.length; i++) {
-            long res = fibonacci.Iterative(i);
-            long check = first35fibNumbers[i];
-            log.info("Testing iterative correctness [" + i + "]: res = " + res + ", check = " + check);
             Assertions.assertEquals(fibonacci.Iterative(i), first35fibNumbers[i]);
         }
     }
