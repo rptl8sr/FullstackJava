@@ -35,7 +35,7 @@ public class FibonacciTest {
     @Test
     void testMemoizedCorrectness() {
         for (int i = 0; i < first35fibNumbers.length; i++) {
-            long res = fibonacci.Recursive(i);
+            long res = fibonacci.Memoized(i);
             long check = first35fibNumbers[i];
             log.info("Testing memoized correctness [" + i + "]: res = " + res + ", check = " + check);
             Assertions.assertEquals(fibonacci.Memoized(i), first35fibNumbers[i]);
@@ -45,10 +45,17 @@ public class FibonacciTest {
     @Test
     void testIterativeCorrectness() {
         for (int i = 0; i < first35fibNumbers.length; i++) {
-            long res = fibonacci.Recursive(i);
+            long res = fibonacci.Iterative(i);
             long check = first35fibNumbers[i];
             log.info("Testing iterative correctness [" + i + "]: res = " + res + ", check = " + check);
             Assertions.assertEquals(fibonacci.Iterative(i), first35fibNumbers[i]);
         }
+    }
+
+    @Test
+    void testNegativeInput() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> fibonacci.Recursive(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> fibonacci.Recursive(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> fibonacci.Recursive(-1));
     }
 }
