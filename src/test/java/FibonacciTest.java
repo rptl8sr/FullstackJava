@@ -1,8 +1,10 @@
 import com.example.Fibonacci;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import annotation.Test;
+
 
 public class FibonacciTest {
     private Fibonacci fibonacci;

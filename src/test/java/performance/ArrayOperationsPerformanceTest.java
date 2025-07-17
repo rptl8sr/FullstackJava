@@ -1,10 +1,11 @@
 package performance;
 
+import java.util.*;
+
 import com.example.ArrayOperations;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import annotation.Test;
 
 public class ArrayOperationsPerformanceTest {
     private final static int[] ARRAY_SIZES = {10, 100, 1000, 10_000, 100_000, 1_000_000};
