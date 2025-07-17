@@ -33,29 +33,33 @@ public class CustomTestRunner {
             Method afterEach = null;
             List<Method> testMethods = new ArrayList<>();
 
-            Method[] methods = c.getDeclaredMethods();
-            for (Method m : methods) {
-                if (m.getName().startsWith("lambda$")) {
-                    continue;
+            Class<?> current = c;
+            while (current != null && current != Object.class) {
+                for (Method m : current.getDeclaredMethods()) {
+                    if (m.getName().startsWith("lambda$")) {
+                        continue;
+                    }
+
+                    if (m.isAnnotationPresent(BeforeEach.class)) {
+                        System.out.printf("  Method: @BeforeEach %s\n", m.getName() );
+                        beforeEach = m;
+                        continue;
+                    }
+                    if (m.isAnnotationPresent(AfterEach.class)) {
+                        System.out.printf("  Method: @AfterEach %s\n", m.getName() );
+                        afterEach = m;
+                        continue;
+                    }
+                    if (m.isAnnotationPresent(Test.class)) {
+                        System.out.printf("  Method: @Test %s\n", m.getName() );
+                        testMethods.add(m);
+                        total++;
+                    } else {
+                        System.out.printf("  Method: %s\n", m.getName() );
+                    }
                 }
 
-                if (m.isAnnotationPresent(BeforeEach.class)) {
-                    System.out.printf("  Method: @BeforeEach %s\n", m.getName() );
-                    beforeEach = m;
-                    continue;
-                }
-                if (m.isAnnotationPresent(AfterEach.class)) {
-                    System.out.printf("  Method: @AfterEach %s\n", m.getName() );
-                    afterEach = m;
-                    continue;
-                }
-                if (m.isAnnotationPresent(Test.class)) {
-                    System.out.printf("  Method: @Test %s\n", m.getName() );
-                    testMethods.add(m);
-                    total++;
-                } else {
-                    System.out.printf("  Method: %s\n", m.getName() );
-                }
+                current = current.getSuperclass();
             }
 
             runTests(c, beforeEach, afterEach, testMethods);
