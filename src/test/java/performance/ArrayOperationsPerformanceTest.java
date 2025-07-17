@@ -44,7 +44,7 @@ public class ArrayOperationsPerformanceTest {
         timeResults.clear();
     }
 
-    @Test
+    @Test(timeout = 10, description = "Testing performance for different shift array methods")
     void testShiftPerformance() {
         for (int arraySize : ARRAY_SIZES) {
             int[] originalArray = generateArray(arraySize);
@@ -58,12 +58,11 @@ public class ArrayOperationsPerformanceTest {
                 }
             }
         }
+
+        printPerformanceReport();
     }
 
-    @Test
     void printPerformanceReport() {
-        testShiftPerformance();
-
         System.out.println("Performance Comparison Report");
         System.out.println("=====================================");
         System.out.println("Size     | Shift    | Trailing | SystemCopy Time (ns) | ManualLoop Time (ns)");

@@ -1,13 +1,11 @@
 package performance;
 
 import com.example.Fibonacci;
-import java.util.concurrent.TimeUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Timeout;
 
 import annotation.Test;
 
@@ -33,7 +31,7 @@ public class FibonacciPerformanceTest {
         }
     }
 
-    @Test(timeout = 10)
+    @Test(timeout = 10, description = "Test performance of different methods to count fibonacci numbers")
     void testPerformance() {
         long[][] timeResults = new long[inputs.length][algorithmOrder.length];
 
@@ -64,7 +62,7 @@ public class FibonacciPerformanceTest {
         }
     }
 
-    @Test(timeout = 10)
+    @Test(timeout = 10, description = "Test memory usage of different methods to count fibonacci numbers")
     void testMemoryUsage() {
         Runtime runtime = Runtime.getRuntime();
         long[][] memoryResults = new long[inputs.length][algorithmOrder.length];

@@ -26,7 +26,7 @@ public class CustomListPerformanceTest {
     }
 
 
-    @Test
+    @Test(description = "Test add")
     void testBulkAdd() {
         runTest("Test add", (list) -> {
             int number = 10_000_000;
@@ -36,7 +36,7 @@ public class CustomListPerformanceTest {
         });
     }
 
-    @Test
+    @Test(description = "Test add and remove")
     void testAddAndRemove() {
         runTest("Test add and remove", (list) -> {
             System.gc();
