@@ -1,6 +1,7 @@
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 import annotation.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -71,9 +72,13 @@ public class CustomTestRunner {
         System.out.println("  Running tests:");
 
         for (Method m : testMethods) {
-            try {
-                System.out.printf("    Method: %s\n", m.getName() );
+            Test testAnnotation = m.getAnnotation(Test.class);
+            String description = testAnnotation.description();
+            System.out.printf("    Running: %s - %s\n", m.getName(), description);
+            long timeout = testAnnotation.timeout();
 
+
+            try {
                 long startTime = System.currentTimeMillis();
                 Object testInstance = c.getDeclaredConstructor().newInstance();
 
@@ -81,17 +86,35 @@ public class CustomTestRunner {
                     beforeEach.setAccessible(true);
                     beforeEach.invoke(testInstance);
                 }
-                m.setAccessible(true);
-                m.invoke(testInstance);
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                Future<?> future = executor.submit(() -> {
+                    try {
+                        m.setAccessible(true);
+                        m.invoke(testInstance);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
+                if (timeout > 0) {
+                    future.get(timeout, TimeUnit.SECONDS);
+                } else {
+                    future.get();
+                }
+
                 if (afterEach != null) {
                     afterEach.setAccessible(true);
                     afterEach.invoke(testInstance);
                 }
 
-                time +=  System.currentTimeMillis() - startTime;
+                executor.shutdownNow();
 
+                time +=  System.currentTimeMillis() - startTime;
                 passed++;
                 System.out.printf("    Time: %d ms\n", time);
+            } catch (TimeoutException e) {
+                failed++;
+                System.out.printf("    %s FAILED: Timeout after %d ms\n", m.getName(), testAnnotation.timeout());
             } catch (Exception e) {
                 failed++;
                 String errorMessage = e.getCause() != null ? e.getCause().getMessage() : e.getMessage();
