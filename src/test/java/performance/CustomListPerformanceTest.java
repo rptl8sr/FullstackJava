@@ -62,10 +62,9 @@ public class CustomListPerformanceTest {
             System.gc();
             long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
 
-            long startTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
             testLogic.accept(testCase);
-            long endTime = System.nanoTime();
-            long duration = endTime - startTime;
+            long duration = System.currentTimeMillis() - startTime;
 
             long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
             long memoryUsed = memoryAfter - memoryBefore;
@@ -74,7 +73,7 @@ public class CustomListPerformanceTest {
             timeResults.put(name, duration);
             memoryResults.put(name, memoryUsed);
 
-            System.out.printf("Time elapsed: %d ns%n", duration);
+            System.out.printf("Time elapsed: %d ms%n", duration);
             System.out.printf("Memory used: %d bytes (%.2f MB)%n", memoryUsed, memoryUsed / (1024.0 * 1024.0));
             System.out.println("================");
         }
