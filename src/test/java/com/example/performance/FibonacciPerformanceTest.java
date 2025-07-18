@@ -1,4 +1,4 @@
-package performance;
+package com.example.performance;
 
 import com.example.Fibonacci;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import annotation.Test;
+import com.example.annotation.Test;
 
 public class FibonacciPerformanceTest {
     private final int[] inputs = {10, 20, 30, 35, 37};
@@ -31,7 +31,7 @@ public class FibonacciPerformanceTest {
         }
     }
 
-    @Test(timeout = 10, description = "Test performance of different methods to count fibonacci numbers")
+    @Test(timeout = 10, description = "Test com.example.performance of different methods to count fibonacci numbers")
     void testPerformance() {
         long[][] timeResults = new long[inputs.length][algorithmOrder.length];
 

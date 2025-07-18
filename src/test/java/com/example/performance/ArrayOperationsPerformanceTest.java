@@ -1,11 +1,11 @@
-package performance;
+package com.example.performance;
 
 import java.util.*;
 
 import com.example.ArrayOperations;
 import org.junit.jupiter.api.BeforeEach;
 
-import annotation.Test;
+import com.example.annotation.Test;
 
 public class ArrayOperationsPerformanceTest {
     private final static int[] ARRAY_SIZES = {10, 100, 1000, 10_000, 100_000, 1_000_000};
@@ -44,7 +44,7 @@ public class ArrayOperationsPerformanceTest {
         timeResults.clear();
     }
 
-    @Test(timeout = 10, description = "Testing performance for different shift array methods")
+    @Test(timeout = 10, description = "Testing com.example.performance for different shift array methods")
     void testShiftPerformance() {
         for (int arraySize : ARRAY_SIZES) {
             int[] originalArray = generateArray(arraySize);

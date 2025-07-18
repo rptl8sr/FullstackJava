@@ -1,9 +1,9 @@
-import com.example.Fibonacci;
+package com.example;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
 
-import annotation.Test;
+import com.example.annotation.Test;
 
 
 public class FibonacciTest {

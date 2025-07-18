@@ -1,4 +1,4 @@
-package performance;
+package com.example.performance;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import com.example.CustomList;
 import org.junit.jupiter.api.BeforeEach;
 
-import annotation.Test;
+import com.example.annotation.Test;
 
 public class CustomListPerformanceTest {
     private Map<String, List<Integer>> testCases;
