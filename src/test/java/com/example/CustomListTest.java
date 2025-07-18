@@ -1,10 +1,11 @@
-import com.example.CustomList;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
+package com.example;
 
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
+
+import com.example.annotation.Test;
 
 public class CustomListTest {
     private CustomList<Object> customList;

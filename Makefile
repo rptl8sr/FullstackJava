@@ -30,6 +30,9 @@ test:
 clean:
 	mvn clean
 
+update-deps:
+	mvn install
+
 help:
 	@echo "Available commands:"
 	@echo "  make all     - Compiles and runs the application"
